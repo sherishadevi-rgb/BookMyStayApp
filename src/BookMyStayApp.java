@@ -8,3 +8,6 @@ public class BookMyStayApp {
 
     }
 }
+git add .
+git commit -m "UC1:Application Entry & Welcome Message "
+git push origin feature/UC1
