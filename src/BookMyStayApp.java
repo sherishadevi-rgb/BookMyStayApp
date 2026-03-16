@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public class BookMyStayApp {
 
     public static void main(String[] args) {
@@ -6,22 +8,24 @@ public class BookMyStayApp {
         Room doubleRoom = new DoubleRoom();
         Room suite = new SuiteRoom();
 
-        int singleAvailability = 5;
-        int doubleAvailability = 3;
-        int suiteAvailability = 2;
+        RoomInventory inventory = new RoomInventory();
 
         System.out.println("Welcome to BookMyStay - Hotel Booking System\n");
 
         single.displayDetails();
-        System.out.println("Available Rooms: " + singleAvailability);
+        System.out.println("Available: " + inventory.getAvailability("Single Room"));
         System.out.println();
 
         doubleRoom.displayDetails();
-        System.out.println("Available Rooms: " + doubleAvailability);
+        System.out.println("Available: " + inventory.getAvailability("Double Room"));
         System.out.println();
 
         suite.displayDetails();
-        System.out.println("Available Rooms: " + suiteAvailability);
+        System.out.println("Available: " + inventory.getAvailability("Suite Room"));
+        System.out.println();
+
+        System.out.println("Current Inventory:");
+        inventory.displayInventory();
     }
 }
 
@@ -67,6 +71,30 @@ class SuiteRoom extends Room {
         super("Suite Room", 3, 50, 150);
     }
 }
-git add .
-git commit -m "UC2: kscbksdbv"
-git push origin feature/UC2
+
+class RoomInventory {
+
+    private HashMap<String, Integer> inventory;
+
+    public RoomInventory() {
+        inventory = new HashMap<>();
+        inventory.put("Single Room", 5);
+        inventory.put("Double Room", 3);
+        inventory.put("Suite Room", 2);
+    }
+
+    public int getAvailability(String roomType) {
+        return inventory.getOrDefault(roomType, 0);
+    }
+
+    public void updateAvailability(String roomType, int newCount) {
+        inventory.put(roomType, newCount);
+    }
+
+    public void displayInventory() {
+        for (String roomType : inventory.keySet()) {
+            System.out.println(roomType + " Available: " + inventory.get(roomType));
+        }
+    }
+}
+
